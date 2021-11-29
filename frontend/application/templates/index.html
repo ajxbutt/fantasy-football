@@ -1,20 +1,18 @@
 {% extends "layout.html" %}
 {% block body %}
 
-    <!-- <h2>Incomplete Tasks</h2>
-    {% for task in all_tasks %}
-    {% if task["completed"] == False %}
+    <h2>Football Teams</h2>
+    {% for team in all_teams %}
         <p>
-            Task ID: {{ task["id"] }}<br>
-            Task Description: {{ task["description"] }}<br>
-            <a href="{{ url_for('update_task', id=task.id) }}">Edit</a>
-            <a href="{{ url_for('delete_task', id=task.id) }}">Delete</a>
-            <a href="{{ url_for('complete_task', id=task.id) }}">Complete</a>
+            Team ID: {{ team["id"] }}<br>
+            Team Name: {{ team["name"] }}<br>
+            Team League: {{ team["league"] }}<br>
+            <a href="{{ url_for('update_team_name', id=team.id) }}">Edit</a>
+            <a href="{{ url_for('delete_team', id=team.id) }}">Delete</a>
         </p>    
-    {% endif %}
     {% endfor %}
     
-    <h2>Completed Tasks</h2>
+    <!-- <h2>Completed Tasks</h2>
     {% for task in all_tasks %}
     {% if task.completed == True %}
         <p>
