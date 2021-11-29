@@ -17,7 +17,7 @@ def create_team():
     form = TeamForm()
 
     if request.method == "POST":
-        response = requests.post(f"http://{backend_host}/create/team", json={"name": form.name.data})
+        response = requests.post(f"http://{backend_host}/create/team", json={"name": form.name.data, "league": form.league.data})
         app.logger.info(f"Response: {response.text}")
         return redirect(url_for('home'))
 
