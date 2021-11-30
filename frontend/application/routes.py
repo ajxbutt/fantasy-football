@@ -55,17 +55,8 @@ def delete_team(id):
     app.logger.info(f"Response: {response.text}")
     return redirect(url_for('home'))
 
-# @app.route('/complete/task/<int:id>')
-# def complete_task(id):
-#     response = requests.put(f"http://{backend_host}/complete/task/{id}")
-#     app.logger.info(f"Response: {response.text}")
-#     return redirect(url_for('home'))
 
-# @app.route('/incomplete/task/<int:id>')
-# def incomplete_task(id):
-#     response = requests.put(f"http://{backend_host}/incomplete/task/{id}")
-#     app.logger.info(f"Response: {response.text}")
-#     return redirect(url_for('home'))
+# FOOTBALL PLAYERS
 
 @app.route('/create/player', methods=['GET','POST'])
 def create_player():

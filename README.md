@@ -1,8 +1,8 @@
-# Todo List Flask App
+# Fantasy Football Flask App
 
 ## Overview
 
-This is an example of a Flask-based todo list application. It performs full CRUD functionality and models a database with a single `tasks` table using SQLAlchemy.
+This is an example of a Flask-based fantasy football application. It performs full CRUD functionality and models a database with `Teams` and `Players` tables both using SQLAlchemy.
 
 ## Running the Application
 
@@ -58,7 +58,7 @@ These instructions assume you are running your app on an Ubuntu machine.
     
     Any other value will not generate the schema at app start-up.
 
-    >NOTE: if `CREATE_SCHEMA` is not set, it will cause the application to crash at start-up. I will likely add some code at a later point so this does not happen.
+    >NOTE: if `CREATE_SCHEMA` is not set, it will cause the application to crash at start-up.
 
 6.  Run the application:
 
