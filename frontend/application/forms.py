@@ -1,5 +1,5 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, SubmitField
+from wtforms import StringField, SubmitField, SelectField
 from wtforms.validators import DataRequired
 
 class TeamForm(FlaskForm):
@@ -9,4 +9,5 @@ class TeamForm(FlaskForm):
 
 class PlayerForm(FlaskForm):
     name = StringField("Player Name", validators=[DataRequired()])
+    team = SelectField("Team", choices=[])
     submit = SubmitField("Submit")

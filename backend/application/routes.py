@@ -73,7 +73,7 @@ def delete_team(id):
 @app.route('/create/player', methods=['POST'])
 def create_player():
         package = request.json
-        new_player = Players(name=package["name"])
+        new_player = Players(name=package["name"], team_id=package["team_id"])
         db.session.add(new_player)
         db.session.commit()
         return Response(f"Added player with name: {new_player.name}", mimetype='text/plain')

@@ -3,7 +3,7 @@ from application.forms import TeamForm, PlayerForm
 from flask import render_template, request, redirect, url_for, jsonify
 import requests
 
-backend_host = "todo-app-backend:5000"
+backend_host = "fantasy-football-backend:5000"
 
 @app.route('/')
 @app.route('/home')
@@ -70,9 +70,12 @@ def delete_team(id):
 @app.route('/create/player', methods=['GET','POST'])
 def create_player():
     form = PlayerForm()
+    all_teams = requests.get(f"http://{backend_host}/read/allTeams").json()
+    for team in all_teams["teams"]:
+        form.team.choices.append((team["id"], team["name"]))
 
     if request.method == "POST":
-        response = requests.post(f"http://{backend_host}/create/player", json={"name": form.name.data})
+        response = requests.post(f"http://{backend_host}/create/player", json={"name": form.name.data, "team_id": form.team.data})
         app.logger.info(f"Response: {response.text}")
         return redirect(url_for('home'))
 

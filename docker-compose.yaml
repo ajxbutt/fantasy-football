@@ -2,18 +2,18 @@ version: "3.8"
 services:
   frontend:
     build: ./frontend
-    image: todo-app-frontend:latest
-    container_name: todo-app-frontend
+    image: ajxbutt/fantasy-football-frontend:latest
+    container_name: fantasy-football-frontend
     ports:
     - target: 5000
       published: 80
   backend:
     build: ./backend
-    image: todo-app-backend:latest
-    container_name: todo-app-backend
+    image: ajxbutt/fantasy-football-backend:latest
+    container_name: fantasy-football-backend
     environment:
-      DATABASE_URI: mysql+pymysql://grapefruit@grapefruit:Letmein123@grapefruit.mysql.database.azure.com:3306/mydatabase
-      CREATE_SCHEMA: true
+      DATABASE_URI:
+      CREATE_SCHEMA:
     ports:
       - target: 5000
         published: 5000

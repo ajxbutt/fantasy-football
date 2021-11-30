@@ -18,6 +18,7 @@
         <p>
             Player ID: {{ player["id"] }}<br>
             Player Name: {{ player["name"] }}<br>
+            Player Team: {{ player["team_id"] }}<br>
             <a href="{{ url_for('update_player_name', id=player.id) }}">Edit</a>
             <a href="{{ url_for('delete_player', id=player.id) }}">Delete</a>
         </p>    
