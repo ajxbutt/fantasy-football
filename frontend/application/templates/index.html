@@ -7,22 +7,20 @@
             Team ID: {{ team["id"] }}<br>
             Team Name: {{ team["name"] }}<br>
             Team League: {{ team["league"] }}<br>
-            <a href="{{ url_for('update_team_name', id=team.id) }}">Edit</a>
+            <a href="{{ url_for('update_team_name', id=team.id) }}">Edit name</a>
+            <a href="{{ url_for('update_team_league', id=team.id) }}">Edit league</a>
             <a href="{{ url_for('delete_team', id=team.id) }}">Delete</a>
         </p>    
     {% endfor %}
     
-    <!-- <h2>Completed Tasks</h2>
-    {% for task in all_tasks %}
-    {% if task.completed == True %}
+    <h2>Football Players</h2>
+    {% for player in all_players %}
         <p>
-            Task ID: {{ task["id"] }}<br>
-            Task Description: {{ task["description"] }}<br>
-            <a href="{{ url_for('update_task', id=task.id) }}">Edit</a>
-            <a href="{{ url_for('delete_task', id=task.id) }}">Delete</a>
-            <a href="{{ url_for('incomplete_task', id=task.id) }}">Incomplete</a>
+            Player ID: {{ player["id"] }}<br>
+            Player Name: {{ player["name"] }}<br>
+            <a href="{{ url_for('update_player_name', id=player.id) }}">Edit</a>
+            <a href="{{ url_for('delete_player', id=player.id) }}">Delete</a>
         </p>    
-    {% endif %}
-    {% endfor %} -->
+    {% endfor %}
 
 {% endblock body %}

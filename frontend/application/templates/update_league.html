@@ -1,0 +1,14 @@
+{% extends "layout.html" %}
+{% block body %}
+<p>
+    <b>Current team league:</b> {{ team.league }}
+</p>
+
+<div class='form'>
+    <form method='POST' action=''>
+        {{ form.hidden_tag() }}
+        {{ form.league.label }} {{ form.league }}<br>
+        {{ form.submit }}<br>
+    </form>
+</div>
+{% endblock %}

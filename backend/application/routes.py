@@ -1,5 +1,5 @@
 from application import app, db
-from application.models import Teams
+from application.models import Teams, Players
 from flask import render_template, request, redirect, url_for, Response, jsonify
 
 @app.route('/create/team', methods=['POST'])
@@ -69,3 +69,47 @@ def delete_team(id):
 #     task.completed = False
 #     db.session.commit()
 #     return Response(f"Task (ID:{id}) incomplete.")
+
+@app.route('/create/player', methods=['POST'])
+def create_player():
+        package = request.json
+        new_player = Players(name=package["name"])
+        db.session.add(new_player)
+        db.session.commit()
+        return Response(f"Added player with name: {new_player.name}", mimetype='text/plain')
+
+@app.route('/read/allPlayers', methods=['GET'])
+def read_players():
+    all_players = Players.query.all()
+    players_dict = {"players": []}
+    for player in all_players:
+        players_dict["players"].append(
+            {
+                "id": player.id,
+                "name": player.name,
+            }
+        )
+    return jsonify(players_dict)
+
+@app.route('/read/player/<int:id>', methods=['GET'])
+def read_player(id):
+    player = Players.query.get(id)
+    players_dict = {
+                "name": player.name,
+                }
+    return jsonify(players_dict)
+
+@app.route('/update/player/name/<int:id>', methods=['PUT'])
+def update_player_name(id):
+    package = request.json
+    player = Players.query.get(id)
+    player.name = package["name"]
+    db.session.commit()
+    return Response(f"Updated player (ID: {id}) with name: {player.name}", mimetype='text/plain')
+
+@app.route('/delete/player/<int:id>', methods=['DELETE'])
+def delete_player(id):
+    player = Players.query.get(id)
+    db.session.delete(player)
+    db.session.commit()
+    return Response(f"Deleted player (ID: {id})", mimetype='text/plain')

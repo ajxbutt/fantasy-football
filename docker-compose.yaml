@@ -2,18 +2,18 @@ version: "3.8"
 services:
   frontend:
     build: ./frontend
-    image: ajxbutt/todo-app-frontend:latest
+    image: todo-app-frontend:latest
     container_name: todo-app-frontend
     ports:
     - target: 5000
       published: 80
   backend:
     build: ./backend
-    image: ajxbutt/todo-app-backend:latest
+    image: todo-app-backend:latest
     container_name: todo-app-backend
     environment:
-      DATABASE_URI:
-      CREATE_SCHEMA:
+      DATABASE_URI: mysql+pymysql://grapefruit@grapefruit:Letmein123@grapefruit.mysql.database.azure.com:3306/mydatabase
+      CREATE_SCHEMA: true
     ports:
       - target: 5000
         published: 5000
