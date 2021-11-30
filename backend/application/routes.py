@@ -56,19 +56,8 @@ def delete_team(id):
     db.session.commit()
     return Response(f"Deleted team (ID: {id})", mimetype='text/plain')
 
-# @app.route('/complete/task/<int:id>', methods=['PUT'])
-# def complete_task(id):
-#     task = Tasks.query.get(id)
-#     task.completed = True
-#     db.session.commit()
-#     return Response(f"Task (ID:{id}) completed.")
 
-# @app.route('/incomplete/task/<int:id>', methods=['PUT'])
-# def incomplete_task(id):
-#     task = Tasks.query.get(id)
-#     task.completed = False
-#     db.session.commit()
-#     return Response(f"Task (ID:{id}) incomplete.")
+# FOOTBALL PLAYERS
 
 @app.route('/create/player', methods=['POST'])
 def create_player():
