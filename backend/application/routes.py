@@ -76,6 +76,7 @@ def read_players():
             {
                 "id": player.id,
                 "name": player.name,
+                "team_id": player.team.id,
             }
         )
     return jsonify(players_dict)
