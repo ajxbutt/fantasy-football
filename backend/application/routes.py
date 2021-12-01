@@ -15,11 +15,21 @@ def read_teams():
     all_teams = Teams.query.all()
     teams_dict = {"teams": []}
     for team in all_teams:
+        players = []
+        for player in team.players:
+            players.append(
+                {
+                    "id": player.id,
+                    "name": player.name,
+                    "team_id": player.team_id,
+                }
+            )
         teams_dict["teams"].append(
             {
                 "id": team.id,
                 "name": team.name,
                 "league": team.league,
+                "players": players
             }
         )
     return jsonify(teams_dict)
@@ -59,10 +69,18 @@ def delete_team(id):
 
 # FOOTBALL PLAYERS
 
-@app.route('/create/player', methods=['POST'])
-def create_player():
+# @app.route('/create/player', methods=['POST'])
+# def create_player():
+#         package = request.json
+#         new_player = Players(name=package["name"], team_id=package["team_id"])
+#         db.session.add(new_player)
+#         db.session.commit()
+#         return Response(f"Added player with name: {new_player.name}", mimetype='text/plain')
+
+@app.route('/create/player/<int:team_id>', methods=['POST'])
+def create_player(team_id):
         package = request.json
-        new_player = Players(name=package["name"], team_id=package["team_id"])
+        new_player = Players(name=package["name"], team_id=team_id)
         db.session.add(new_player)
         db.session.commit()
         return Response(f"Added player with name: {new_player.name}", mimetype='text/plain')
@@ -76,7 +94,7 @@ def read_players():
             {
                 "id": player.id,
                 "name": player.name,
-                "team_id": player.team.id,
+                "team_id": player.team_id,
             }
         )
     return jsonify(players_dict)

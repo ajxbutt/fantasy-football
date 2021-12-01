@@ -9,5 +9,5 @@ class TeamForm(FlaskForm):
 
 class PlayerForm(FlaskForm):
     name = StringField("Player Name", validators=[DataRequired()])
-    team = SelectField("Team", choices=[])
+    team = SelectField("Player Team", choices=[])
     submit = SubmitField("Submit")
