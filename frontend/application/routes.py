@@ -3,16 +3,14 @@ from application.forms import TeamForm, PlayerForm
 from flask import render_template, request, redirect, url_for, jsonify
 import requests
 
-backend_host = "fantasy-football_backend:5000"
+backend_host = "fantasy-football-backend:5000"
 
 @app.route('/')
 @app.route('/home')
 def home():
     all_teams = requests.get(f"http://{backend_host}/read/allTeams").json()
-    all_players = requests.get(f"http://{backend_host}/read/allPlayers").json()
     app.logger.info(f"Teams: {all_teams}")
-    app.logger.info(f"Teams: {all_players}")
-    return render_template('index.html', title="Home", all_teams=all_teams["teams"], all_players=all_players["players"])
+    return render_template('index.html', title="Home", all_teams=all_teams["teams"])
 
 @app.route('/create/team', methods=['GET','POST'])
 def create_team():

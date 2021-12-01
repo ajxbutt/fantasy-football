@@ -4,11 +4,11 @@
         <title>FANTASY FOOTBALL - {{ title }}</title>
     </head>
     <body style="background-color: rgb(47, 241, 255);">
-        <h1>FOOTBALL APP - {{ title }}</h1>
+        <h1>CREATE YOUR FANTASY FOOTBALL TEAM - {{ title }}</h1>
         <p>
             <a href="{{ url_for('home') }}">Home</a>
             <a href="{{ url_for('create_team') }}">Create Team</a>
-            <a href="{{ url_for('create_player') }}">Create Player</a>
+            <a href="{{ url_for('create_player') }}">Add Player</a>
         </p>
         {% block body %}
         {% endblock body %}
