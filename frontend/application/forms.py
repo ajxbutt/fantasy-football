@@ -10,5 +10,4 @@ class TeamForm(FlaskForm):
 class PlayerForm(FlaskForm):
     name = StringField("Player Name", validators=[DataRequired()])
     position = StringField("Position", validators=[DataRequired()])
-    # team = SelectField("Player Team", choices=[])
     submit = SubmitField("Submit")

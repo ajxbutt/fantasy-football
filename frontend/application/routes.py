@@ -26,9 +26,6 @@ def create_team():
 @app.route('/create/player/<int:team_id>', methods=['GET','POST'])
 def create_player(team_id):
     form = PlayerForm()
-    # all_teams = requests.get(f"http://{backend_host}/read/allTeams").json()
-    # for team in all_teams["teams"]:
-    #     form.team.choices.append((team["id"], team["name"]))
 
     if request.method == "POST":
         response = requests.post(f"http://{backend_host}/create/player/{team_id}", json={"name": form.name.data, "position": form.position.data}) #, "team_id": form.team.data})
