@@ -4,8 +4,8 @@ services:
     deploy:
       replicas: 1
     build: ./frontend
-    image: ajxbutt/fantasy-football_frontend:latest
-    container_name: fantasy-football_frontend
+    image: ajxbutt/fantasy-football-frontend:latest
+    container_name: fantasy-football-frontend
     ports:
     - target: 5000
       published: 80
@@ -13,8 +13,8 @@ services:
     deploy:
       replicas: 1
     build: ./backend
-    image: ajxbutt/fantasy-football_backend:latest
-    container_name: fantasy-football_backend
+    image: ajxbutt/fantasy-football-backend:latest
+    container_name: fantasy-football-backend
     environment:
       DATABASE_URI:
       CREATE_SCHEMA:
