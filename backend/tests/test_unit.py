@@ -9,6 +9,11 @@ test_team = {
                 "league": "league a",
             }
 
+test_player = {
+                "id": 1,
+                "name": "player a",
+                "position": "any",
+            }
 class TestBase(TestCase):
 
     def create_app(self):
@@ -51,12 +56,12 @@ class TestRead(TestBase):
     def test_read_team_players(self):
         response = self.client.get(url_for('get_players'))
         all_teams = { "teams": [{'id': 1, 'league': None, 'name':'team a', 'players':[]}] }
-        self.assertEquals(all_teams, response.json)
+        self.assertEquals(test_player, response.json)
 
     def test_read_player(self):
         response = self.client.get(url_for('read_player'))
         all_teams = { "teams": [{'id': 1, 'league': None, 'name':'team a', 'players':[]}] }
-        self.assertEquals(all_teams, response.json)
+        self.assertEquals(test_player, response.json)
 
 class TestCreate(TestBase):
 
@@ -72,11 +77,11 @@ class TestCreate(TestBase):
     def test_create_player(self, team_id):
         response = self.client.post(
             url_for('create_player'),
-            json={"name": "team a", "position": "ST"},
+            json={"name": "player a", "position": "any"},
             follow_redirects=True
         )
-        self.assertEquals(b"Added team with name: team a", response.data)
-        self.assertEquals(Teams.query.get(1).name, "team a")
+        self.assertEquals(b"Added team with name: player a", response.data)
+        self.assertEquals(Teams.query.get(1).name, "player a")
     
 class TestUpdate(TestBase):
 
@@ -99,7 +104,7 @@ class TestUpdate(TestBase):
     def test_update_player_name(self):
         response = self.client.put(
             url_for('update_player_name', id=1),
-            json={"name": "team a"}
+            json={"name": "player a"}
         )
         self.assertEquals(b"Updated player (ID: 1) with name: team a", response.data)
         self.assertEquals(Teams.query.get(1).league, "league a")
