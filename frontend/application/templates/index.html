@@ -1,11 +1,11 @@
 {% extends "layout.html" %}
 {% block body %}
 
-    <h2>Football Team</h2>
+    <h2>Football Club</h2>
     {% for team in all_teams %}
         <p>
-            Team Name: {{ team["name"] }}<br>
-            Team League: {{ team["league"] }}<br>
+            Club Name: <b> {{ team["name"] }} </b> <br>
+            League: {{ team["league"] }}<br>
             <a href="{{ url_for('update_team_name', id=team.id) }}">Edit name</a>
             <a href="{{ url_for('update_team_league', id=team.id) }}">Edit league</a>
             <a href="{{ url_for('delete_team', id=team.id) }}">Delete</a>
@@ -14,7 +14,7 @@
     <h2>Players in - {{ team["name"] }}</h2>
     {% for player in team["players"] %}
         <p>
-            {{ player["name"] }}<br>
+            <b> {{ player["name"] }} </b> <br>
             Position: {{ player["position"] }}<br>
             <a href="{{ url_for('update_player_name', id=player.id) }}">Edit</a>
             <a href="{{ url_for('delete_player', id=player.id) }}">Delete</a>
