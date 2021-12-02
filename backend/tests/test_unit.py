@@ -5,8 +5,8 @@ from application.models import Teams
 
 test_team = {
                 "id": 1,
-                "name": "Run unit tests",
-                "league": "Run unit tests",
+                "name": "team a",
+                "league": "league a",
             }
 
 class TestBase(TestCase):
@@ -23,7 +23,7 @@ class TestBase(TestCase):
     def setUp(self):
         # Will be called before every test
         db.create_all()
-        db.session.add(Teams(name="Run unit tests"))
+        db.session.add(Teams(name="team a"))
         db.session.commit()
 
     def tearDown(self):
@@ -35,11 +35,12 @@ class TestRead(TestBase):
 
     def test_read_all_teams(self):
         response = self.client.get(url_for('read_teams'))
-        all_teams = { "teams": [team_teams] }
+        all_teams = { "teams": [{'id': 1, 'league': None, 'name':'team a', 'players':[]}] }
         self.assertEquals(all_teams, response.json)
     
     def test_read_team(self):
         response = self.client.get(url_for('read_team', id=1))
+        json = {'league': None, 'name': 'team a'}
         self.assertEquals(test_team, response.json)
 
 class TestCreate(TestBase):
@@ -47,34 +48,34 @@ class TestCreate(TestBase):
     def test_create_team(self):
         response = self.client.post(
             url_for('create_team'),
-            json={"description": "Testing create functionality"},
+            json={"name": "team a", "league": None},
             follow_redirects=True
         )
-        self.assertEquals(b"Added team with name: Testing create functionality", response.data)
-        self.assertEquals(Teams.query.get(2).name, "Testing create functionality")
+        self.assertEquals(b"Added team with name: team a", response.data)
+        self.assertEquals(Teams.query.get(1).name, "team a")
     
 class TestUpdate(TestBase):
 
     def test_update_team(self):
         response = self.client.put(
             url_for('update_team_name', id=1),
-            json={"name": "Testing update functionality"}
+            json={"name": "team a"}
         )
-        self.assertEquals(b"Updated team (ID: 1) with name: Testing update functionality", response.data)
-        self.assertEquals(Teams.query.get(1).name, "Testing update functionality")
+        self.assertEquals(b"Updated team (ID: 1) with name: team a", response.data)
+        self.assertEquals(Teams.query.get(1).name, "team a")
     
     def test_update_league(self):
         response = self.client.put(
             url_for('update_team_league', id=1),
-            json={"league": "Testing update functionality"}
+            json={"league": "league a"}
         )
-        self.assertEquals(b"Updated team (ID: 1) with league: Testing update functionality", response.data)
-        self.assertEquals(Teams.query.get(1).league, "Testing update functionality")
+        self.assertEquals(b"Updated team (ID: 1) with league: league a", response.data)
+        self.assertEquals(Teams.query.get(1).league, "league a")
         
 
 class TestDelete(TestBase):
 
     def test_delete_team(self):
         response = self.client.delete(url_for('delete_team', id=1))
-        self.assertEquals(b"Deleted team with ID: 1", response.data)
+        self.assertEquals(b"Deleted team (ID: 1)", response.data)
         self.assertIsNone(Teams.query.get(1))
