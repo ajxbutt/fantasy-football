@@ -1,8 +1,18 @@
 from flask import url_for
 from flask_testing import TestCase
 from application import app, db
+<<<<<<< main
 from application.models import Tasks
 
+=======
+from application.models import Teams
+
+test_team = {
+                "id": 1,
+                "name": "team a",
+                "league": "league a",
+            }
+>>>>>>> local
 class TestBase(TestCase):
 
     def create_app(self):
