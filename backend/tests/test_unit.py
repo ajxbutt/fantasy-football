@@ -37,11 +37,26 @@ class TestRead(TestBase):
         response = self.client.get(url_for('read_teams'))
         all_teams = { "teams": [{'id': 1, 'league': None, 'name':'team a', 'players':[]}] }
         self.assertEquals(all_teams, response.json)
+
+    def test_read_all_players(self):
+        response = self.client.get(url_for('read_players'))
+        all_teams = { "teams": [{'id': 1, 'league': None, 'name':'team a', 'players':[]}] }
+        self.assertEquals(all_teams, response.json)
     
     def test_read_team(self):
         response = self.client.get(url_for('read_team', id=1))
         json = {'league': None, 'name': 'team a'}
         self.assertEquals(test_team, response.json)
+
+    def test_read_team_players(self):
+        response = self.client.get(url_for('get_players'))
+        all_teams = { "teams": [{'id': 1, 'league': None, 'name':'team a', 'players':[]}] }
+        self.assertEquals(all_teams, response.json)
+
+    def test_read_player(self):
+        response = self.client.get(url_for('read_player'))
+        all_teams = { "teams": [{'id': 1, 'league': None, 'name':'team a', 'players':[]}] }
+        self.assertEquals(all_teams, response.json)
 
 class TestCreate(TestBase):
 
