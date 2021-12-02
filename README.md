@@ -17,7 +17,7 @@ As part of the DevOps approach, a CI/CD Pipeline was implemented to automate the
 ## Webhook Logs
 ![webhook](https://user-images.githubusercontent.com/91483629/144508921-35865c99-a46c-4771-8c00-6cfce353d9fc.png)
 
-## Unit Test Logs
+## Test Reports
 ![test results](https://user-images.githubusercontent.com/91483629/144517267-e952404b-5830-4d1c-a1b4-1d58abc6f115.png)
 
 ## Code Coverage
