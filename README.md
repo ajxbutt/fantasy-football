@@ -23,6 +23,9 @@ As part of the DevOps approach, a CI/CD Pipeline was implemented to automate the
 ## Code Coverage
 ![coverage logs](https://user-images.githubusercontent.com/91483629/144517377-f9896146-2d7e-4d74-b5f2-071916e705a2.png)
 
+## Deployment Logs
+![deployment logs](https://user-images.githubusercontent.com/91483629/144519194-611eb2ec-c4ad-4aab-a0ef-191044aea5d9.png)
+
 ## Future Improvements
 Unit testing.
 Unit testing coverage.
