@@ -61,17 +61,6 @@ def update_team_league(id):
 
     return render_template('update_league.html', team=team, form=form)
 
-@app.route('/delete/team/<int:id>')
-def delete_team(id):
-    response = requests.delete(f"http://{backend_host}/delete/team/{id}")
-    app.logger.info(f"Response: {response.text}")
-    return redirect(url_for('home'))
-
-
-
-
-
-
 @app.route('/update/player/name/<int:id>', methods=['GET','POST'])
 def update_player_name(id):
     form = PlayerForm()
@@ -83,6 +72,13 @@ def update_player_name(id):
         return redirect(url_for('home'))
 
     return render_template('update_player.html', player=player, form=form)
+
+
+@app.route('/delete/team/<int:id>')
+def delete_team(id):
+    response = requests.delete(f"http://{backend_host}/delete/team/{id}")
+    app.logger.info(f"Response: {response.text}")
+    return redirect(url_for('home'))
 
 @app.route('/delete/player/<int:id>')
 def delete_player(id):
