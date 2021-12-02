@@ -40,7 +40,7 @@ class TestViews(TestBase):
 
     def test_update_team(self):
         with requests_mock.Mocker() as m:
-            m.get(f"http://{backend_host}/update/team/name/{id}", json=test_team)
+            m.get(f"http://{backend_host}/update/team/name/1", json=test_team)
             response = self.client.get(url_for('update_team_name', id=1))
             self.assert200(response)
 
@@ -101,8 +101,8 @@ class TestUpdate(TestBase):
 
     def test_update_team_name(self):
         with requests_mock.Mocker() as m:
-            m.get(f"http://{backend_host}/read/team/{id}", json=test_team)
-            m.put(f"http://{backend_host}/update/team/name/{id}", text="Test response")
+            m.get(f"http://{backend_host}/read/team/1", json=test_team)
+            m.put(f"http://{backend_host}/update/team/name/1", text="Test response")
             test_team["name"] = "team a"
             m.get(f"http://{backend_host}/read/allTeams", json={ "teams": [test_team] })
             response = self.client.post(
@@ -114,8 +114,8 @@ class TestUpdate(TestBase):
     
     def test_update_team_league(self):
         with requests_mock.Mocker() as m:
-            m.get(f"http://{backend_host}/read/team/{id}", json=test_team)
-            m.put(f"http://{backend_host}/update/team/name/{id}", text="Test response")
+            m.get(f"http://{backend_host}/read/team/1", json=test_team)
+            m.put(f"http://{backend_host}/update/team/name/1", text="Test response")
             test_team["league"] = "league a"
             m.get(f"http://{backend_host}/read/allTeams", json={ "teams": [test_team] })
             response = self.client.post(
@@ -127,8 +127,8 @@ class TestUpdate(TestBase):
 
     def test_update_player_name(self):
         with requests_mock.Mocker() as m:
-            m.get(f"http://{backend_host}/read/team/{id}", json=test_player)
-            m.put(f"http://{backend_host}/update/player/name/{id}", text="Test response")
+            m.get(f"http://{backend_host}/read/team/1", json=test_player)
+            m.put(f"http://{backend_host}/update/player/name/1", text="Test response")
             test_player["name"] = "player a"
             m.get(f"http://{backend_host}/read/allPlayers", json={ "players": [test_player] })
             response = self.client.post(
@@ -143,7 +143,7 @@ class TestDelete(TestBase):
 
     def test_delete_team(self):
         with requests_mock.Mocker() as m:
-            m.delete(f"http://{backend_host}/delete/team/{id}")
+            m.delete(f"http://{backend_host}/delete/team/1")
             m.get(f"http://{backend_host}/read/allTeams", json={ "teams": [] })
             response = self.client.get(
                 url_for('delete_team', id=1),
@@ -153,7 +153,7 @@ class TestDelete(TestBase):
 
     def test_delete_player(self):
         with requests_mock.Mocker() as m:
-            m.delete(f"http://{backend_host}/delete/player/{id}")
+            m.delete(f"http://{backend_host}/delete/player/1")
             m.get(f"http://{backend_host}/read/allPlayers", json={ "players": [] })
             response = self.client.get(
                 url_for('delete_player', id=1),
