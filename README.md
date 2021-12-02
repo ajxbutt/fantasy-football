@@ -6,15 +6,16 @@ This is a Flask-based fantasy football application. It performs full CRUD functi
 
 ![new erd](https://user-images.githubusercontent.com/91483629/144483665-f695f2f4-8492-446b-b399-875feefe21f6.jpg)
 
+## Risk Assessment
+![risk assessment](https://user-images.githubusercontent.com/91483629/144489314-69560043-d908-42fc-87b1-529fae3e7af4.png)
+
 ## CI/CD Pipeline:
 As part of the DevOps approach, a CI/CD Pipeline was implemented to automate the integration and deployment of new code. The `Jenkins` automation server was used as part of the CI/CD Pipeline to Setup, Test, Build, Push and Deploy the application. The setup stage installs/updates apt dependencies. The testing stage runs unit tests using pytest. The build and push stages makes use of docker and docker-compose to build the docker images and push the docker images to a registry (DockerHub). Finally, the deploy stage deploys the application to a Docker Swarm server hosted in the cloud.
+
 ![cicdpipieline](https://user-images.githubusercontent.com/91483629/144489962-7aa90bd4-38c3-4a86-930f-dd85943e1d43.png)
 
 ## Webhook Logs
 ![webhook](https://user-images.githubusercontent.com/91483629/144508921-35865c99-a46c-4771-8c00-6cfce353d9fc.png)
-
-## Risk Assessment
-![risk assessment](https://user-images.githubusercontent.com/91483629/144489314-69560043-d908-42fc-87b1-529fae3e7af4.png)
 
 ## Unit Test Logs
 ![test results](https://user-images.githubusercontent.com/91483629/144517267-e952404b-5830-4d1c-a1b4-1d58abc6f115.png)
