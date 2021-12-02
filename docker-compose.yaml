@@ -4,7 +4,7 @@ services:
     deploy:
       replicas: 1
     build: ./frontend
-    image: ajxbutt/fantasy-football-frontend:latest
+    image: ajxbutt/fantasy-football_frontend:latest
     container_name: fantasy-football_frontend
     ports:
     - target: 5000
@@ -13,7 +13,7 @@ services:
     deploy:
       replicas: 1
     build: ./backend
-    image: ajxbutt/fantasy-football-backend:latest
+    image: ajxbutt/fantasy-football_backend:latest
     container_name: fantasy-football_backend
     environment:
       DATABASE_URI:
