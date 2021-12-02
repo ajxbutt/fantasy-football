@@ -13,7 +13,7 @@ def create_team():
 @app.route('/create/player/<int:team_id>', methods=['POST'])
 def create_player(team_id):
         json = request.json
-        new_player = Players(name=json["name"], team_id=team_id)
+        new_player = Players(name=json["name"], position=json["position"], team_id=team_id)
         db.session.add(new_player)
         db.session.commit()
         return Response(f"Added player with name: {new_player.name}", mimetype='text/plain')
@@ -29,6 +29,7 @@ def read_teams():
                 {
                     "id": player.id,
                     "name": player.name,
+                    "position": player.position,
                     "team_id": player.team_id,
                 }
             )
@@ -51,6 +52,7 @@ def read_players():
             {
                 "id": player.id,
                 "name": player.name,
+                "position": player.position,
                 "team_id": player.team_id,
             }
         )
@@ -74,10 +76,20 @@ def get_players(id):
             {
                 "id": player.id,
                 "name": player.name,
+                "position": player.position,
                 "team_id": player.team_id,
             }
         )
     return jsonify(json)
+
+@app.route('/read/player/<int:id>', methods=['GET'])
+def read_player(id):
+    player = Players.query.get(id)
+    players_dict = {
+                "name": player.name,
+                "position": player.position,
+                }
+    return jsonify(players_dict)
 
 @app.route('/update/team/name/<int:id>', methods=['PUT'])
 def update_team_name(id):
@@ -94,6 +106,14 @@ def update_team_league(id):
     team.league = json["league"]
     db.session.commit()
     return Response(f"Updated team (ID: {id}) with league: {team.league}", mimetype='text/plain')
+
+@app.route('/update/player/name/<int:id>', methods=['PUT'])
+def update_player_name(id):
+    package = request.json
+    player = Players.query.get(id)
+    player.name = package["name"]
+    db.session.commit()
+    return Response(f"Updated player (ID: {id}) with name: {player.name}", mimetype='text/plain')
 
 @app.route('/delete/team/<int:id>', methods=['DELETE'])
 def delete_team(id):
@@ -140,23 +160,6 @@ def delete_player(id):
 #             }
 #         )
 #     return jsonify(players_dict)
-
-# @app.route('/read/player/<int:id>', methods=['GET'])
-# def read_player(id):
-#     player = Players.query.get(id)
-#     players_dict = {
-#                 "name": player.name,
-#                 "team_id": player.team_id,
-#                 }
-#     return jsonify(players_dict)
-
-# @app.route('/update/player/name/<int:id>', methods=['PUT'])
-# def update_player_name(id):
-#     package = request.json
-#     player = Players.query.get(id)
-#     player.name = package["name"]
-#     db.session.commit()
-#     return Response(f"Updated player (ID: {id}) with name: {player.name}", mimetype='text/plain')
 
 # @app.route('/delete/player/<int:id>', methods=['DELETE'])
 # def delete_player(id):

@@ -14,7 +14,8 @@
     <h2>Players in - {{ team["name"] }}</h2>
     {% for player in team["players"] %}
         <p>
-            Player Name: {{ player["name"] }}<br>
+            {{ player["name"] }}<br>
+            Position: {{ player["position"] }}<br>
             <a href="{{ url_for('update_player_name', id=player.id) }}">Edit</a>
             <a href="{{ url_for('delete_player', id=player.id) }}">Delete</a>
         </p>    

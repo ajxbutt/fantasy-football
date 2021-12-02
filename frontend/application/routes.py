@@ -31,7 +31,7 @@ def create_player():
     #     form.team.choices.append((team["id"], team["name"]))
 
     if request.method == "POST":
-        response = requests.post(f"http://{backend_host}/create/player/1", json={"name": form.name.data}) #, "team_id": form.team.data})
+        response = requests.post(f"http://{backend_host}/create/player/1", json={"name": form.name.data, "position": form.position.data}) #, "team_id": form.team.data})
         app.logger.info(f"Response: {response.text}")
         return redirect(url_for('home'))
 
