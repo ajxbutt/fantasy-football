@@ -22,6 +22,7 @@ As part of the DevOps approach, a CI/CD Pipeline was implemented to automate the
 
 ## Code Coverage
 ![coverage logs](https://user-images.githubusercontent.com/91483629/144517377-f9896146-2d7e-4d74-b5f2-071916e705a2.png)
+![coverage graphs](https://user-images.githubusercontent.com/91483629/144519258-62b4afc4-a767-4a5b-9849-45540c60ccec.png)
 
 ## Deployment Logs
 ![deployment logs](https://user-images.githubusercontent.com/91483629/144519194-611eb2ec-c4ad-4aab-a0ef-191044aea5d9.png)
