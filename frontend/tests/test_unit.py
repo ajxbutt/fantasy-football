@@ -4,12 +4,17 @@ from application import app
 from application.routes import backend_host
 import requests_mock
 
-test_task = {
+test_team = {
                 "id": 1,
-                "description": "Test the frontend",
-                "completed": False
+                "name": "team a",
+                "league": "league a"
             }
 
+test_player = {
+                "id": 1,
+                "name": "player a",
+                "position": "any"
+            }
 class TestBase(TestCase):
 
     def create_app(self):
@@ -24,8 +29,8 @@ class TestViews(TestBase):
     # Test whether we get a successful response from our routes
     def test_home_get(self):
         with requests_mock.Mocker() as m:
-            all_tasks = { "tasks": [test_task] }
-            m.get(f"http://{backend_host}/read/allTasks", json=all_tasks)
+            all_teams = { "teams": [test_team] }
+            m.get(f"http://{backend_host}/read/allTeams", json=all_teams)
             response = self.client.get(url_for('home'))
             self.assert200(response)
     
