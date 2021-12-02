@@ -20,70 +20,9 @@ As part of the DevOps approach, a CI/CD Pipeline was implemented to automate the
 ![test results](https://user-images.githubusercontent.com/91483629/144517267-e952404b-5830-4d1c-a1b4-1d58abc6f115.png)
 
 ## Code Coverage
+![coverage logs](https://user-images.githubusercontent.com/91483629/144517377-f9896146-2d7e-4d74-b5f2-071916e705a2.png)
 
 ## Future Improvements
 Unit testing.
 Unit testing coverage.
 Project Tracking Board.
-
-## Running the Application
-
-These instructions assume you are running your app on an Ubuntu machine.
-
-1.  Install the necessary `apt` requirements:
-
-    ```bash
-    sudo apt update
-    sudo apt install python3 python3-venv python3-pip
-    ```
-
-2.  Create a Python virtual environment and activate it:
-
-    ```bash
-    python3 -m venv venv
-    source venv/bin/activate
-    ```
-
-3.  Install the required Python packages with `pip` using the [`requirements.txt`](/requirements.txt) file:
-
-    ```bash
-    pip3 install -r requirements.txt
-    ```
-
-4.  Define the connection string for your database as an environment variable named `DATABASE_URI`:
-
-    ```bash
-    export DATABASE_URI=<your_database_uri_here>
-    ```
-
-    If you are connecting to an external database, your connection string will be in the format:
-
-    ```bash
-    export DATABASE_URI=mysql+pymysql://<username>:<password>@<db_hostname>:3306/<database>
-    ```
-
-    Alternatively, you can use SQLite to store your database data as a file:
-
-    ```bash
-    export DATABASE_URI=sqlite:///data.db
-    ```
-
-    This will create a file called `data.db` in your [`application/`](/application) directory.
-
-5.  Set the `CREATE_SCHEMA` environment variable.
-
-    ```bash
-    export CREATE_SCHEMA=<true_or_false>
-    ```
-
-    When this variable is set to `true`, it will generate the table schema in the database you are connecting to (as defined by the `DATABASE_URI` variable).
-    
-    Any other value will not generate the schema at app start-up.
-
-    >NOTE: if `CREATE_SCHEMA` is not set, it will cause the application to crash at start-up.
-
-6.  Run the application:
-
-    ```bash
-    python3 app.py
-    ```
