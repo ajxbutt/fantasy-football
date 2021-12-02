@@ -23,6 +23,20 @@ def create_team():
 
     return render_template("create_team.html", title="Create a new team", form=form)
 
+@app.route('/create/player', methods=['GET','POST'])
+def create_player():
+    form = PlayerForm()
+    # all_teams = requests.get(f"http://{backend_host}/read/allTeams").json()
+    # for team in all_teams["teams"]:
+    #     form.team.choices.append((team["id"], team["name"]))
+
+    if request.method == "POST":
+        response = requests.post(f"http://{backend_host}/create/player/1", json={"name": form.name.data}) #, "team_id": form.team.data})
+        app.logger.info(f"Response: {response.text}")
+        return redirect(url_for('home'))
+
+    return render_template("create_player.html", title="Create a new player", form=form)
+
 @app.route('/update/team/name/<int:id>', methods=['GET','POST'])
 def update_team_name(id):
     form = TeamForm()
@@ -54,21 +68,9 @@ def delete_team(id):
     return redirect(url_for('home'))
 
 
-# FOOTBALL PLAYERS
 
-@app.route('/create/player', methods=['GET','POST'])
-def create_player():
-    form = PlayerForm()
-    all_teams = requests.get(f"http://{backend_host}/read/allTeams").json()
-    for team in all_teams["teams"]:
-        form.team.choices.append((team["id"], team["name"]))
 
-    if request.method == "POST":
-        response = requests.post(f"http://{backend_host}/create/player", json={"name": form.name.data, "team_id": form.team.data})
-        app.logger.info(f"Response: {response.text}")
-        return redirect(url_for('home'))
 
-    return render_template("create_player.html", title="Create a new player", form=form)
 
 @app.route('/update/player/name/<int:id>', methods=['GET','POST'])
 def update_player_name(id):
