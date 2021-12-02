@@ -8,6 +8,11 @@ test_team = {
                 "name": "team a",
                 "league": "league a",
             }
+test_player = {
+                "id": 1,
+                "name": "player a",
+                "position": "st",
+            }
 
 class TestBase(TestCase):
 
@@ -31,6 +36,27 @@ class TestBase(TestCase):
         db.session.remove()
         db.drop_all()
 
+
+class TestCreate(TestBase):
+
+    def test_create_team(self):
+        response = self.client.post(
+            url_for('create_team'),
+            json={"name": "team a", "league": None},
+            follow_redirects=True
+        )
+        self.assertEquals(b"Added team with name: team a", response.data)
+        self.assertEquals(Teams.query.get(1).name, "team a")
+
+    def test_create_player(self, team_id):
+        response = self.client.post(
+            url_for('create_player'),
+            json={"name": "team a", "position": "ST"},
+            follow_redirects=True
+        )
+        self.assertEquals(b"Added team with name: team a", response.data)
+        self.assertEquals(Teams.query.get(1).name, "team a")
+    
 class TestRead(TestBase):
 
     def test_read_all_teams(self):
@@ -58,26 +84,6 @@ class TestRead(TestBase):
         all_teams = { "teams": [{'id': 1, 'league': None, 'name':'team a', 'players':[]}] }
         self.assertEquals(all_teams, response.json)
 
-class TestCreate(TestBase):
-
-    def test_create_team(self):
-        response = self.client.post(
-            url_for('create_team'),
-            json={"name": "team a", "league": None},
-            follow_redirects=True
-        )
-        self.assertEquals(b"Added team with name: team a", response.data)
-        self.assertEquals(Teams.query.get(1).name, "team a")
-
-    def test_create_player(self, team_id):
-        response = self.client.post(
-            url_for('create_player'),
-            json={"name": "team a", "position": "ST"},
-            follow_redirects=True
-        )
-        self.assertEquals(b"Added team with name: team a", response.data)
-        self.assertEquals(Teams.query.get(1).name, "team a")
-    
 class TestUpdate(TestBase):
 
     def test_update_team(self):

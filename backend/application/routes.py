@@ -18,6 +18,8 @@ def create_player(team_id):
         db.session.commit()
         return Response(f"Added player with name: {new_player.name}", mimetype='text/plain')
 
+
+
 @app.route('/read/allTeams', methods=['GET'])
 def read_teams():
     all_teams = Teams.query.all()
@@ -91,6 +93,8 @@ def read_player(id):
                 }
     return jsonify(players_dict)
 
+
+
 @app.route('/update/team/name/<int:id>', methods=['PUT'])
 def update_team_name(id):
     json = request.json
@@ -114,6 +118,8 @@ def update_player_name(id):
     player.name = package["name"]
     db.session.commit()
     return Response(f"Updated player (ID: {id}) with name: {player.name}", mimetype='text/plain')
+
+    
 
 @app.route('/delete/team/<int:id>', methods=['DELETE'])
 def delete_team(id):
