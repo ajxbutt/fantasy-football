@@ -16,8 +16,8 @@ As part of the DevOps approach, a CI/CD Pipeline was implemented to automate the
 ## Risk Assessment
 ![risk assessment](https://user-images.githubusercontent.com/91483629/144489314-69560043-d908-42fc-87b1-529fae3e7af4.png)
 
-## Unit Tests
-
+## Unit Test Logs
+![test results](https://user-images.githubusercontent.com/91483629/144510711-fcb018dc-dfbc-481d-8ba7-9bc3726e9da1.png)
 ## Future Improvements
 
 
