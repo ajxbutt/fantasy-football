@@ -21,9 +21,14 @@ As part of the DevOps approach, a CI/CD Pipeline was implemented to automate the
 ![test results](https://user-images.githubusercontent.com/91483629/144517267-e952404b-5830-4d1c-a1b4-1d58abc6f115.png)
 ![pytest logs jenkins](https://user-images.githubusercontent.com/91483629/144595587-efb11d99-3f7b-47f2-9351-5097f50c5a21.png)
 
+Unit testing using the pytest framework module in Visual Studio Code, and Jenkins Test Results Logs.
+In total, 12/23 tests failed. The frontend unit tests were especially difficult to implement and required the use of the requests_mock module. In future iterations of the application, these tests would ideally be fixed before deployment, and could be done so by correcting code in unit_test.py file.
+
 ## Code Coverage
 ![coverage logs](https://user-images.githubusercontent.com/91483629/144517377-f9896146-2d7e-4d74-b5f2-071916e705a2.png)
 ![coverage graphs](https://user-images.githubusercontent.com/91483629/144519258-62b4afc4-a767-4a5b-9849-45540c60ccec.png)
+
+Cobertura Plug-in for Jenkins was used to generate coverage report.
 
 ## Deployment Logs
 ![deployment logs](https://user-images.githubusercontent.com/91483629/144519194-611eb2ec-c4ad-4aab-a0ef-191044aea5d9.png)
