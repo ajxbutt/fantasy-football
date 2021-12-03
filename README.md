@@ -15,6 +15,8 @@ This is a Flask-based fantasy football application. It performs full CRUD functi
 ## CI/CD Pipeline:
 As part of the DevOps approach, a CI/CD Pipeline was implemented to automate the integration and deployment of new code. The `Jenkins` automation server was used as part of the CI/CD Pipeline to Setup, Test, Build, Push and Deploy the application. The setup stage installs/updates apt dependencies. The testing stage runs unit tests using pytest. The build and push stages makes use of docker and docker-compose to build the docker images and push the docker images to a registry (DockerHub). Finally, the deploy stage deploys the application to a Docker Swarm server hosted in the cloud.
 
+https://1drv.ms/u/s!Asa5y2jPPVMaa0oUZHQzivM4akE
+
 ![cicdpipieline](https://user-images.githubusercontent.com/91483629/144489962-7aa90bd4-38c3-4a86-930f-dd85943e1d43.png)
 
 ## Webhook Logs
