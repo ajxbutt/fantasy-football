@@ -27,3 +27,7 @@ As part of the DevOps approach, a CI/CD Pipeline was implemented to automate the
 Unit testing.
 Unit testing coverage.
 Project Tracking Board.
+
+![coverage logs](https://user-images.githubusercontent.com/91483629/144590306-9995e696-88e9-4f8b-854b-c828f5965907.png)
+
+
