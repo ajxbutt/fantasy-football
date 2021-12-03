@@ -6,6 +6,9 @@ This is a Flask-based fantasy football application. It performs full CRUD functi
 
 ![new erd](https://user-images.githubusercontent.com/91483629/144483665-f695f2f4-8492-446b-b399-875feefe21f6.jpg)
 
+## Component-Level and Network Infrastructure Diagrams
+![component level diagram](https://user-images.githubusercontent.com/91483629/144618869-99c9d5c1-09fa-4e22-9df4-92ccae8b71d1.png)
+
 ## Risk Assessment
 ![risk assessment](https://user-images.githubusercontent.com/91483629/144489314-69560043-d908-42fc-87b1-529fae3e7af4.png)
 
