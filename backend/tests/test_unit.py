@@ -1,8 +1,23 @@
 from flask import url_for
 from flask_testing import TestCase
 from application import app, db
+<<<<<<< HEAD
 <<<<<<< main
 from application.models import Tasks
+=======
+from application.models import Teams
+
+test_team = {
+                "id": 1,
+                "name": "team a",
+                "league": "league a",
+            }
+test_player = {
+                "id": 1,
+                "name": "player a",
+                "position": "st",
+            }
+>>>>>>> dev
 
 =======
 from application.models import Teams
@@ -27,7 +42,7 @@ class TestBase(TestCase):
     def setUp(self):
         # Will be called before every test
         db.create_all()
-        db.session.add(Tasks(description="Run unit tests"))
+        db.session.add(Teams(name="team a"))
         db.session.commit()
 
     def tearDown(self):
@@ -35,68 +50,88 @@ class TestBase(TestCase):
         db.session.remove()
         db.drop_all()
 
-class TestViews(TestBase):
-    # Test whether we get a successful response from our routes
-    def test_home_get(self):
-        response = self.client.get(url_for('home'))
-        self.assert200(response)
-    
-    def test_create_task_get(self):
-        response = self.client.get(url_for('create_task'))
-        self.assert200(response)
-
-    def test_read_tasks_get(self):
-        response = self.client.get(url_for('read_tasks'))
-        self.assert200(response)
-
-    def test_update_task_get(self):
-        response = self.client.get(url_for('update_task', id=1))
-        self.assert200(response)
-
-class TestRead(TestBase):
-
-    def test_read_home_tasks(self):
-        response = self.client.get(url_for('home'))
-        self.assertIn(b"Run unit tests", response.data)
-    
-    def test_read_tasks_dictionary(self):
-        response = self.client.get(url_for('read_tasks'))
-        self.assertIn(b"Run unit tests", response.data)
 
 class TestCreate(TestBase):
 
-    def test_create_task(self):
+    def test_create_team(self):
         response = self.client.post(
-            url_for('create_task'),
-            data={"description": "Testing create functionality"},
+            url_for('create_team'),
+            json={"name": "team a", "league": None},
             follow_redirects=True
         )
-        self.assertIn(b"Testing create functionality", response.data)
+        self.assertEquals(b"Added team with name: team a", response.data)
+        self.assertEquals(Teams.query.get(1).name, "team a")
+
+    def test_create_player(self, team_id):
+        response = self.client.post(
+            url_for('create_player'),
+            json={"name": "team a", "position": "ST"},
+            follow_redirects=True
+        )
+        self.assertEquals(b"Added team with name: team a", response.data)
+        self.assertEquals(Teams.query.get(1).name, "team a")
     
+class TestRead(TestBase):
+
+    def test_read_all_teams(self):
+        response = self.client.get(url_for('read_teams'))
+        all_teams = { "teams": [{'id': 1, 'league': None, 'name':'team a', 'players':[]}] }
+        self.assertEquals(all_teams, response.json)
+
+    def test_read_all_players(self):
+        response = self.client.get(url_for('read_players'))
+        all_teams = { "teams": [{'id': 1, 'league': None, 'name':'team a', 'players':[]}] }
+        self.assertEquals(all_teams, response.json)
+    
+    def test_read_team(self):
+        response = self.client.get(url_for('read_team', id=1))
+        json = {'league': None, 'name': 'team a'}
+        self.assertEquals(test_team, response.json)
+
+    def test_read_team_players(self):
+        response = self.client.get(url_for('get_players'))
+        all_teams = { "teams": [{'id': 1, 'league': None, 'name':'team a', 'players':[]}] }
+        self.assertEquals(all_teams, response.json)
+
+    def test_read_player(self):
+        response = self.client.get(url_for('read_player'))
+        all_teams = { "teams": [{'id': 1, 'league': None, 'name':'team a', 'players':[]}] }
+        self.assertEquals(all_teams, response.json)
+
 class TestUpdate(TestBase):
 
-    def test_update_task(self):
-        response = self.client.post(
-            url_for('update_task', id=1),
-            data={"description": "Testing update functionality"},
-            follow_redirects=True
+    def test_update_team(self):
+        response = self.client.put(
+            url_for('update_team_name', id=1),
+            json={"name": "team a"}
         )
-        self.assertIn(b"Testing update functionality", response.data)
+        self.assertEquals(b"Updated team (ID: 1) with name: team a", response.data)
+        self.assertEquals(Teams.query.get(1).name, "team a")
     
-    def test_complete_task(self):
-        response = self.client.get(url_for('complete_task', id=1), follow_redirects=True)
-        self.assertEqual(Tasks.query.get(1).completed, True)
-    
-    def test_incomplete_task(self):
-        response = self.client.get(url_for('incomplete_task', id=1), follow_redirects=True)
-        self.assertEqual(Tasks.query.get(1).completed, False)
+    def test_update_league(self):
+        response = self.client.put(
+            url_for('update_team_league', id=1),
+            json={"league": "league a"}
+        )
+        self.assertEquals(b"Updated team (ID: 1) with league: league a", response.data)
+        self.assertEquals(Teams.query.get(1).league, "league a")
         
+    def test_update_player_name(self):
+        response = self.client.put(
+            url_for('update_player_name', id=1),
+            json={"name": "team a"}
+        )
+        self.assertEquals(b"Updated player (ID: 1) with name: team a", response.data)
+        self.assertEquals(Teams.query.get(1).league, "league a")
 
 class TestDelete(TestBase):
 
-    def test_delete_task(self):
-        response = self.client.get(
-            url_for('delete_task', id=1),
-            follow_redirects=True
-        )
-        self.assertNotIn(b"Run unit tests", response.data)
+    def test_delete_team(self):
+        response = self.client.delete(url_for('delete_team', id=1))
+        self.assertEquals(b"Deleted team (ID: 1)", response.data)
+        self.assertIsNone(Teams.query.get(1))
+
+    def test_delete_player(self):
+        response = self.client.delete(url_for('delete_player', id=1))
+        self.assertEquals(b"Deleted player (ID: 1)", response.data)
+        self.assertIsNone(Teams.query.get(1))

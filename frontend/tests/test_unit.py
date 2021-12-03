@@ -1,92 +1,162 @@
 from flask import url_for
 from flask_testing import TestCase
-from application import app, db
-from application.models import Tasks
+from application import app
+from application.routes import backend_host
+import requests_mock
 
+test_team = {
+                "id": 1,
+                "name": "team a",
+                "league": "league a"
+            }
+
+test_player = {
+                "id": 1,
+                "name": "player a",
+                "position": "any"
+            }
 class TestBase(TestCase):
 
     def create_app(self):
         # Defines the flask object's configuration for the unit tests
         app.config.update(
-            SQLALCHEMY_DATABASE_URI='sqlite:///',
             DEBUG=True,
             WTF_CSRF_ENABLED=False
         )
         return app
 
-    def setUp(self):
-        # Will be called before every test
-        db.create_all()
-        db.session.add(Tasks(description="Run unit tests"))
-        db.session.commit()
-
-    def tearDown(self):
-        # Will be called after every test
-        db.session.remove()
-        db.drop_all()
-
 class TestViews(TestBase):
     # Test whether we get a successful response from our routes
     def test_home_get(self):
-        response = self.client.get(url_for('home'))
-        self.assert200(response)
+        with requests_mock.Mocker() as m:
+            all_teams = { "teams": [test_team] }
+            m.get(f"http://{backend_host}/read/allTeams", json=all_teams)
+            response = self.client.get(url_for('home'))
+            self.assert200(response)
     
-    def test_create_task_get(self):
-        response = self.client.get(url_for('create_task'))
+    def test_create_team(self):
+        response = self.client.get(url_for('create_team'))
         self.assert200(response)
 
-    def test_read_tasks_get(self):
-        response = self.client.get(url_for('read_tasks'))
-        self.assert200(response)
-
-    def test_update_task_get(self):
-        response = self.client.get(url_for('update_task', id=1))
-        self.assert200(response)
+    def test_update_team(self):
+        with requests_mock.Mocker() as m:
+            m.get(f"http://{backend_host}/update/team/name/1", json=test_team)
+            response = self.client.get(url_for('update_team_name', id=1))
+            self.assert200(response)
 
 class TestRead(TestBase):
 
-    def test_read_home_tasks(self):
-        response = self.client.get(url_for('home'))
-        self.assertIn(b"Run unit tests", response.data)
-    
-    def test_read_tasks_dictionary(self):
-        response = self.client.get(url_for('read_tasks'))
-        self.assertIn(b"Run unit tests", response.data)
+    def test_read_home_teams(self):
+        with requests_mock.Mocker() as m:
+            all_teams = { "teams": [test_team] }
+            m.get(f"http://{backend_host}/read/allTeams", json=all_teams)
+            response = self.client.get(url_for('home'))
+            self.assertIn(b"team a", response.data)
 
 class TestCreate(TestBase):
 
-    def test_create_task(self):
-        response = self.client.post(
-            url_for('create_task'),
-            data={"description": "Testing create functionality"},
-            follow_redirects=True
-        )
-        self.assertIn(b"Testing create functionality", response.data)
+    def test_create_team(self):
+        with requests_mock.Mocker() as m:
+            all_teams = { "teams": 
+                [
+                    test_team,
+                    {
+                        "id": 1,
+                        "name": "team a",
+                        "league": "league a"
+                    }
+                ] 
+            }
+            m.post(f"http://{backend_host}/create/team", text="Test response")
+            m.get(f"http://{backend_host}/read/allTeams", json=all_teams)
+            response = self.client.post(
+                url_for('create_team'),
+                json={"name": "team a"},
+                follow_redirects=True
+            )
+            self.assertIn(b"team a", response.data)
+
+    def test_create_player(self):
+        with requests_mock.Mocker() as m:
+            all_players = { "players": 
+                [
+                    test_player,
+                    {
+                        "id": 1,
+                        "name": "player a",
+                        "position": "any"
+                    }
+                ] 
+            }
+            m.post(f"http://{backend_host}/create/player", text="Test response")
+            m.get(f"http://{backend_host}/read/allPlayers", json=all_players)
+            response = self.client.post(
+                url_for('create_player'),
+                json={"name": "player a"},
+                follow_redirects=True
+            )
+            self.assertIn(b"player a", response.data)
     
 class TestUpdate(TestBase):
 
-    def test_update_task(self):
-        response = self.client.post(
-            url_for('update_task', id=1),
-            data={"description": "Testing update functionality"},
-            follow_redirects=True
-        )
-        self.assertIn(b"Testing update functionality", response.data)
+    def test_update_team_name(self):
+        with requests_mock.Mocker() as m:
+            m.get(f"http://{backend_host}/read/team/1", json=test_team)
+            m.put(f"http://{backend_host}/update/team/name/1", text="Test response")
+            test_team["name"] = "team a"
+            m.get(f"http://{backend_host}/read/allTeams", json={ "teams": [test_team] })
+            response = self.client.post(
+                url_for('update_team_name', id=1),
+                data={"name": "team a"},
+                follow_redirects=True
+            )
+            self.assertIn(b"team a", response.data)
     
-    def test_complete_task(self):
-        response = self.client.get(url_for('complete_task', id=1), follow_redirects=True)
-        self.assertEqual(Tasks.query.get(1).completed, True)
-    
-    def test_incomplete_task(self):
-        response = self.client.get(url_for('incomplete_task', id=1), follow_redirects=True)
-        self.assertEqual(Tasks.query.get(1).completed, False)
+    def test_update_team_league(self):
+        with requests_mock.Mocker() as m:
+            m.get(f"http://{backend_host}/read/team/1", json=test_team)
+            m.put(f"http://{backend_host}/update/team/name/1", text="Test response")
+            test_team["league"] = "league a"
+            m.get(f"http://{backend_host}/read/allTeams", json={ "teams": [test_team] })
+            response = self.client.post(
+                url_for('update_team_league', id=1),
+                data={"league": "league a"},
+                follow_redirects=True
+            )
+            self.assertIn(b"league a", response.data)
+
+    def test_update_player_name(self):
+        with requests_mock.Mocker() as m:
+            m.get(f"http://{backend_host}/read/team/1", json=test_player)
+            m.put(f"http://{backend_host}/update/player/name/1", text="Test response")
+            test_player["name"] = "player a"
+            m.get(f"http://{backend_host}/read/allPlayers", json={ "players": [test_player] })
+            response = self.client.post(
+                url_for('update_player_name', id=1),
+                data={"name": "player a"},
+                follow_redirects=True
+            )
+            self.assertIn(b"player a", response.data)
         
 
 class TestDelete(TestBase):
 
-    def test_delete_task(self):
-        response = self.client.get(
-            url_for('delete_task', id=1),
-            follow_redirects=True
-        )
-        self.assertNotIn(b"Run unit tests", response.data)
+    def test_delete_team(self):
+        with requests_mock.Mocker() as m:
+            m.delete(f"http://{backend_host}/delete/team/1")
+            m.get(f"http://{backend_host}/read/allTeams", json={ "teams": [] })
+            response = self.client.get(
+                url_for('delete_team', id=1),
+                follow_redirects=True
+            )
+            self.assertNotIn(b"team a", response.data)
+
+    def test_delete_player(self):
+        with requests_mock.Mocker() as m:
+            m.delete(f"http://{backend_host}/delete/player/1")
+            m.get(f"http://{backend_host}/read/allPlayers", json={ "players": [] })
+            response = self.client.get(
+                url_for('delete_player', id=1),
+                follow_redirects=True
+            )
+            self.assertNotIn(b"player a", response.data)

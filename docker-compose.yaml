@@ -1,16 +1,20 @@
 version: "3.8"
 services:
   frontend:
+    deploy:
+      replicas: 3
     build: ./frontend
-    image: ajxbutt/todo-app-frontend:latest
-    container_name: todo-app-frontend
+    image: ajxbutt/fantasy-football-frontend:latest
+    container_name: fantasy-football_frontend
     ports:
     - target: 5000
       published: 80
   backend:
+    deploy:
+      replicas: 3
     build: ./backend
-    image: ajxbutt/todo-app-backend:latest
-    container_name: todo-app-backend
+    image: ajxbutt/fantasy-football-backend:latest
+    container_name: fantasy-football_backend
     environment:
       DATABASE_URI:
       CREATE_SCHEMA:
