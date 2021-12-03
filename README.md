@@ -19,6 +19,7 @@ As part of the DevOps approach, a CI/CD Pipeline was implemented to automate the
 
 ## Test Reports
 ![test results](https://user-images.githubusercontent.com/91483629/144517267-e952404b-5830-4d1c-a1b4-1d58abc6f115.png)
+![pytest logs jenkins](https://user-images.githubusercontent.com/91483629/144595587-efb11d99-3f7b-47f2-9351-5097f50c5a21.png)
 
 ## Code Coverage
 ![coverage logs](https://user-images.githubusercontent.com/91483629/144517377-f9896146-2d7e-4d74-b5f2-071916e705a2.png)
