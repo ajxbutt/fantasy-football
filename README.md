@@ -44,12 +44,12 @@ The deploy stage initializes and containerises application services. The deploym
 https://1drv.ms/u/s!Asa5y2jPPVMaa0oUZHQzivM4akE
 
 ## Future Improvements
-**Unit testing**
+**Unit testing:**
 Would like to improve on unit testing for future iterations of this application. Despite achieving 86% code coverage, half of all testing didn't pass. In future iterations of the application, these tests would ideally be fixed before deployment, and could be done so by correcting code in unit_test.py file.
 
-**Unit testing coverage**
+**Unit testing coverage:**
 Was able to achieve 86% test coverage across both services. Should aim to achieve 100% in future iterations.
 
-**Project Tracking Board.**
+**Project Tracking Board:**
 A robust feature-branch model which integrates with the project tracking board should be used in future.
 
