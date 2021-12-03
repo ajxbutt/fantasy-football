@@ -65,4 +65,3 @@ Was able to achieve 86% test coverage across both services. Should aim to achiev
 **Project Tracking Board:**
 A robust feature-branch model which integrates with the project tracking board should be used in future.
 
->>>>>>> dev
