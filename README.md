@@ -34,6 +34,8 @@ Cobertura Plug-in for Jenkins was used to generate coverage report.
 ## Deployment Logs
 ![deployment logs](https://user-images.githubusercontent.com/91483629/144519194-611eb2ec-c4ad-4aab-a0ef-191044aea5d9.png)
 
+The deploy stage initializes and containerises application services. The deployment logs show the two services, frontend and backend, running on the deployment server. These services can also be seen running via Remote SSH through Visual Studio Code by using the command 'sudo docker service ls'.
+
 ## Future Improvements
 Unit testing.
 Unit testing coverage.
