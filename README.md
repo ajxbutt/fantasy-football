@@ -12,6 +12,7 @@ This is a Flask-based fantasy football application. It performs full CRUD functi
 
 ## Network Infrastructure
 ![network infrastructure docker](https://user-images.githubusercontent.com/91483629/144763706-333f878f-f029-43ec-8241-89741a541b16.png)
+Having multiple replicas running for each service allows for high availability and redundancy.
 
 ## Risk Assessment
 ![risk assessment](https://user-images.githubusercontent.com/91483629/144489314-69560043-d908-42fc-87b1-529fae3e7af4.png)
