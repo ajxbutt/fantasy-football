@@ -8,9 +8,10 @@ This is a Flask-based fantasy football application. It performs full CRUD functi
 
 ## Component-Level Diagram
 ![component level diagram](https://user-images.githubusercontent.com/91483629/144618869-99c9d5c1-09fa-4e22-9df4-92ccae8b71d1.png)
+![network infrastructure](https://user-images.githubusercontent.com/91483629/144755129-440672c3-5e84-4f31-8dd1-e0993da98ba8.png)
 
 ## Network Infrastructure
-![network infrastructure](https://user-images.githubusercontent.com/91483629/144755129-440672c3-5e84-4f31-8dd1-e0993da98ba8.png)
+![network infrastructure docker](https://user-images.githubusercontent.com/91483629/144763706-333f878f-f029-43ec-8241-89741a541b16.png)
 
 ## Risk Assessment
 ![risk assessment](https://user-images.githubusercontent.com/91483629/144489314-69560043-d908-42fc-87b1-529fae3e7af4.png)
